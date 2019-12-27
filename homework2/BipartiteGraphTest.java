@@ -12,7 +12,7 @@ public class BipartiteGraphTest {
 	@Test
     public void testExample() {
         BipartiteGraphTestDriver driver = new BipartiteGraphTestDriver();
-        
+
         //create a graph
         driver.createGraph("graph1");
         
@@ -34,6 +34,27 @@ public class BipartiteGraphTest {
     
     
     //  TODO: Add black-box tests
-    
+	@Test
+    public void TestAddRemove() {
+    	BipartiteGraphTestDriver driver = new BipartiteGraphTestDriver();
+    	
+    	//create graph
+    	driver.createGraph("graph1");
+    	
+    	//add black nodes
+    	driver.addBlackNode("graph1", "b1");
+    	driver.addBlackNode("graph1", "b2");
+    	
+    	//add white nodes
+    	driver.addWhiteNode("graph1", "w1");
+    	driver.addWhiteNode("graph1", "w2");
+    	
+      assertEquals("wrong black nodes", "b1 b2", driver.listBlackNodes("graph1"));
+      assertEquals("wrong black nodes", "w1 w2", driver.listBlackNodes("graph1"));
+      
+      driver.
+    	
+    	
+    }
   
 }

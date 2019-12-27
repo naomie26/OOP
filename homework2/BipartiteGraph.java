@@ -23,7 +23,7 @@ public class BipartiteGraph<T> {
 	 * ABSTRACTION FUNCTION
 	 * 
 	 */
-
+//CHECK REP: DO WE HAVE TO CHECK FOR LEGAL EDGES???
 	/**
 	 * REPRESENTATION INVARIANT
 	 * 
@@ -258,7 +258,44 @@ public class BipartiteGraph<T> {
 		return result;
 	}
 	
-	// getChildEdge(T edgeLabel, T parentLabel) getParentEdge(T edgeLabel, T childLabel)
+	/**
+	 * @requires edgeLabel != null, parentLabel !=  null
+	 * @modifies none
+	 * @returns the label of the child corresponding to the edge with edgeLabel outgoing 
+	 * 					from parentLabel
+	 * @throws Exception if the edgeLabel or parentLabel doesn't exist in the graph
+	 */
+	public T getChildEdge(T edgeLabel, T parentLabel) throws Exception{
+		if( this.nodes.containsKey(parentLabel) == false ) {
+			throw new Exception("nodeLabel doesn't exist in the graph");
+		}
+		Node<T> node = this.getNodeFromLabel(parentLabel);
+		if( node.containsOutEdge(edgeLabel) == false) {
+			throw new Exception("edgeLabel doesn't exist in the graph");
+		}
+		Edge<T> edge = node.getOutEdge(edgeLabel);
+		return edge.getChildLabel();
+	}
+	
+	/**
+	 * @requires edgeLabel != null, parentLabel !=  null
+	 * @modifies none
+	 * @returns the label of the parent corresponding to the edge with edgeLabel incoming 
+	 * 					to childLabel
+	 * @throws Exception if the edgeLabel or childLabel doesn't exist in the graph
+	 */
+	public T getParentEdge(T edgeLabel, T childLabel) throws Exception{
+		if( this.nodes.containsKey(childLabel) == false ) {
+			throw new Exception("nodeLabel doesn't exist in the graph");
+		}
+		Node<T> node = this.getNodeFromLabel(childLabel);
+		if( node.containsInEdge(edgeLabel) == false) {
+			throw new Exception("edgeLabel doesn't exist in the graph");
+		}
+		Edge<T> edge = node.getInEdge(edgeLabel);
+		return edge.getParentLabel();
+	}
+
 	
 	private void checkRep() {
 		assert this.nodes != null;
